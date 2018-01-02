@@ -5,12 +5,12 @@
 # depending on the type of ping, use these options and grep string
 if [ -n "$(env | grep -i windows)" ]; then
 	echo "Using windows mode"
-	options="-n 1 -w 500"
+	options="-n 1 -w 1000"
 	grep_str="Antwort"
 	base_ip=`ipconfig | grep IPv4 | grep -Eo '192.168.[0-9]{1,3}' | tail -1`
 else
 	echo "Using unix mode"
-	options="-c 1"
+	options="-c 1 -w 1"
 	if [ -n "$(echo $LANG | grep de)" ]; then
 		grep_str="bytes from"
 	else
