@@ -1,6 +1,7 @@
 #!/bin/bash
 # This little scripts tries to get answers from all devices on the net
 # Argument one defines a subdomain, e.g. 192.168.123
+# Better way of doing: nmap -sn 192.168.1.0/24
 
 # depending on the type of ping, use these options and grep string
 if [ -n "$(env | grep -i windows)" ]; then
