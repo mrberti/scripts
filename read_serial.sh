@@ -1,7 +1,12 @@
 #!/bin/bash
 
+if [ "$1" != "" ]; then
+	baud=$1
+else
+	baud=500000
+fi
+
 file=/dev/shm/data
-baud=500000
 serial=/dev/ttyUSB0
 
 function finish {
@@ -11,6 +16,6 @@ function finish {
 
 trap finish EXIT
 
-echo "starting capturing to $file"
+echo "starting capturing to $file. Baudrate = $baud"
 stty -F $serial $baud -inpck ignbrk time 5 min 1
 cat $serial > $file
