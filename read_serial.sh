@@ -32,7 +32,7 @@ fi
 touch $file $file_buf
 
 # Set serial option
-stty -F $dev $baud -inpck ignbrk time 5 min 1
+stty -F $dev $baud -hupcl -icrnl -ixon -inpck ignbrk -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke crtscts time 5 min 1
 echo "starting captruing to $file. Maximum line count = $max_lines.  Baudrate = $baud."
 
 # Pipe data into a while loop
