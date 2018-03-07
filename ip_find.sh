@@ -32,8 +32,10 @@ echo "start probing ip on domain $base_ip"
 for i in `seq 1 254`;
 do
 	ip="$base_ip.$i"
-	ping $options $ip | grep -iE "$grep_str"
+	ping $options $ip | grep -iE "$grep_str" &
 	echo -ne $i '\r'
 done
+
+sleep 2
 
 echo "Done."
