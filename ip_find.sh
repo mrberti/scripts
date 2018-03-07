@@ -4,7 +4,7 @@
 # Better way of doing: nmap -sn 192.168.1.0/24
 
 # depending on the type of ping, use these options and grep string
-if [ -n "$(env | grep -i windows)" ]; then
+if [ -n "$(which ping | grep -i windows)" ]; then
 	echo "Using windows mode"
 	options="-n 1 -w 1000"
 	grep_str="(Antwort)|(Reply)"
@@ -23,7 +23,6 @@ fi
 
 if [ "$1" != "" ]; then
 	echo "using script argument $1"
-	exit
 	base_ip=$1
 fi
 
@@ -36,3 +35,5 @@ do
 	ping $options $ip | grep -iE "$grep_str"
 	echo -ne $i '\r'
 done
+
+echo "Done."
