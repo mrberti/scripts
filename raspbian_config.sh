@@ -18,9 +18,20 @@ sudo raspi-config
 sudo apt-get update
 sudo apt-get install vim-gtk git
 
-# Install XRDP
+# Install XRDP. Boot to desktop must be activated
 #sudo apt-get purge realvnc-vnc-server
 #sudo apt-get install xrdp
+
+# Install and configure NOIP
+#mkdir ~/noip
+#pushd ~/noip
+#wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+#tar vzxf noip-duc-linux.tar.gz
+#cd noip-2.1.9-1
+#sudo make
+#sudo make install
+#sudo crontab -e
+#popd
 
 # Get my standard scripts
 cd ~
