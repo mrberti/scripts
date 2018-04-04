@@ -48,7 +48,33 @@ echo "+++ Generate HMAC key. +++"
 openvpn --genkey --secret $KEYS_DIR/ta.key
 
 cd $KEYS_DIR
+
+# Create Default settings
+echo "+++ Creating default settings file +++"
+echo "Enter the public IP address: "
+read PUBLIC_IP
+
+cat > Default.txt << EOF
+client
+dev tun
+proto udp
+remote $PUBLIC_IP
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+mute-replay-warnings
+ns-cert-type server
+key-direction 1
+cipher AES-128-CBC
+comp-lzo
+verb 1
+mute 20
+EOF
+
 for NAME in $CLIENT_NAMES; do
+	echo "+++ Creating .ovnp file for $NAME +++"
+
 # From here below copied from: https://gist.github.com/laurenorsini/9925434
 # Default Variable Declarations 
 	DEFAULT="Default.txt"
@@ -62,14 +88,12 @@ for NAME in $CLIENT_NAMES; do
 #echo "Please enter an existing Client Name:"
 #read NAME 
 	 
-	 
 #1st Verify that client’s Public Key Exists 
 	if [ ! -f $NAME$CRT ]; then 
 	 echo "[ERROR]: Client Public Key Certificate not found: $NAME$CRT" 
 	 exit 
 	fi 
 	echo "Client’s cert found: $NAME$CR" 
-	 
 	 
 #Then, verify that there is a private key for that client 
 	if [ ! -f $NAME$KEY ]; then 
