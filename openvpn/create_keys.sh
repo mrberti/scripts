@@ -120,3 +120,5 @@ for NAME in $CLIENT_NAMES; do
 
 #Script written by Eric Jodoin
 done
+
+chmod 600 $KEYS_DIR/*
