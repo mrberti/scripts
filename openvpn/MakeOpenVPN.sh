@@ -1,26 +1,3 @@
-#!/bin/bash 
-# A script to make a client .ovpn file including keys
-# Credits go to: https://readwrite.com/2014/04/10/raspberry-pi-vpn-tutorial-server-secure-web-browsing/
-EASY_RSA="/etc/openvpn/easy-rsa"
-KEYS_DIR=$EASY_RSA"/keys"
-
-pushd $EASY_RSA
-source ./vars
-
-echo "Please enter a Client Name:"
-read NAME
-
-echo "Creating user key in: $KEYS_DIR"
-bash ./build-key $NAME
-
-echo "Building key pass for $NAME"
-bash ./build-key-pass $NAME
-
-pushd $KEYS_DIR
-
-echo "Encrypt key file."
-openssl rsa -in $NAME.key -des3 -out $NAME.3des.key
-
 # From here below copied from: https://gist.github.com/laurenorsini/9925434
 # Default Variable Declarations 
 DEFAULT="Default.txt"
@@ -31,8 +8,8 @@ CA="ca.crt"
 TA="ta.key" 
  
 #Ask for a Client name 
-#echo "Please enter an existing Client Name:"
-#read NAME 
+echo "Please enter an existing Client Name:"
+read NAME 
  
  
 #1st Verify that client’s Public Key Exists 
@@ -91,4 +68,3 @@ echo "</tls-auth>" >> $NAME$FILEEXT
 echo "Done! $NAME$FILEEXT Successfully Created."
 
 #Script written by Eric Jodoin
-popd
