@@ -22,9 +22,9 @@ echo "+++ Build server key for $SERVER_NAME +++"
 bash ./build-key-server $SERVER_NAME
 
 for NAME in $CLIENT_NAMES; do
-	echo
-	echo "+++ Building key for $NAME +++"
-	bash ./build-key $NAME
+#	echo
+#	echo "+++ Building key for $NAME +++"
+#	bash ./build-key $NAME
 
 	echo
 	echo "+++ Building key pass for $NAME +++"
@@ -68,7 +68,7 @@ ns-cert-type server
 key-direction 1
 cipher AES-128-CBC
 comp-lzo
-verb 1
+verb 3
 mute 20
 EOF
 
