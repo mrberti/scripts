@@ -1,14 +1,19 @@
 #!/bin/bash 
 # A script to make a client .ovpn file including keys
 # Credits go to: https://readwrite.com/2014/04/10/raspberry-pi-vpn-tutorial-server-secure-web-browsing/
+
 SERVER_NAME="server"
-CLIENT_NAMES="simon1" # simon2 simon3"
+CLIENT_NAMES="pi_simon1 pi_simon2 pi_simon3 pi_akiko1"
+
+OUTPUT_DIR="/home/simon/.openvpn"
+OUTPUT_USER="simon"
+OUTPUT_GROUP="simon"
 
 EASY_RSA="/etc/openvpn/easy-rsa"
 KEYS_DIR=$EASY_RSA"/keys"
 
 # We will work directly in the concerning directories
-pushd $EASY_RSA
+cd $EASY_RSA
 
 source ./vars
 echo
@@ -146,3 +151,9 @@ for NAME in $CLIENT_NAMES; do
 done
 
 chmod 600 $KEYS_DIR/*
+chown root:root $KEYS_DIR/*
+
+echo "+++ Copying keys +++"
+cp -v $KEYS_DIR/*.ovpn $OUTPUT_DIR/
+chown $OUTPUT_USER:$OUTPUT_GROUP $OUTPUT_DIR/*.ovpn
+chmod 600 $OUTPUT_DIR/*.ovpn
