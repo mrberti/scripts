@@ -8,6 +8,9 @@ OUTPUT_DIR="/home/simon/.openvpn"
 OUTPUT_USER="simon"
 OUTPUT_GROUP="simon"
 
+KEY_DIR="$EASY_RSA/keys"
+EASY_RSA="/etc/openvpn/easy-rsa"
+
 # We will work directly in the concerning directories
 cd $EASY_RSA
 
@@ -15,8 +18,6 @@ source ./vars
 # If you want to increase the DH Key size, do it here 
 # Do not forget to set the correct file in the server configuration file
 KEY_SIZE=2048
-EASY_RSA="/etc/openvpn/easy-rsa"
-KEY_DIR="$EASY_RSA/keys"
 
 echo
 echo "+++ Removing old keys. +++"

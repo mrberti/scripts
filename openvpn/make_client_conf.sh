@@ -1,10 +1,8 @@
 #!/bin/bash 
+TEMPLATE_DIR="/home/simon/scripts/openvpn"
 OUTPUT_DIR="/home/simon/.openvpn"
 OUTPUT_USER="simon"
 OUTPUT_GROUP="simon"
-
-# We will work directly in the concerning directories
-cd $EASY_RSA
 
 EASY_RSA="/etc/openvpn/easy-rsa"
 KEY_DIR="$EASY_RSA/keys"
@@ -16,9 +14,13 @@ echo "+++ Creating default settings file +++"
 echo "Enter the public IP address: "
 read PUBLIC_IP
 
-cat client.conf | sed "s/<PUBLIC_IP>/$PUBLIC_IP/" > Default.txt
+if [ ! -f $TEMPLATE_DIR/client.conf ]; then
+	echo "[ERROR]: client.conf not found"
+	exit
+fi
+cat $TEMPLATE_DIR/client.conf | sed "s/<PUBLIC_IP>/$PUBLIC_IP/" > Default.txt
 
-CLIENT_NAMES=$(ls | grep .ovpn)
+CLIENT_NAMES=$(ls | grep .3des | cut -d. -f1 )
 for NAME in $CLIENT_NAMES; do
 	echo "+++ Creating .ovnp file for $NAME +++"
 
