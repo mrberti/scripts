@@ -3,7 +3,6 @@
 MAIL_SERVER="smtp.web.de"
 MAIL_PORT="587"
 HOSTNAME="web.de"
-GROUP="simon"
 
 if [[ $(which ssmtp) == "" ]] ; then
 	echo "ssmtp not found. Installing..."
@@ -48,5 +47,6 @@ root:mrberti@web.de:smtp.web.de:587
 simon:mrberti@web.de:smtp.web.de:587
 " > /etc/ssmtp/revaliases
 
-chgrp $GROUP /etc/ssmtp/*
+groupadd -f ssmtp
+chown root:ssmtp /etc/ssmtp/*
 chmod 640 /etc/ssmtp/*
