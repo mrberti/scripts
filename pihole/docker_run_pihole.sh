@@ -18,18 +18,22 @@ echo "IP: ${IP} - IPv6: ${IPv6}"
 
 docker run -d \
     --name pihole \
-	-p 53:53/tcp -p 53:53/udp -p 80:80\
+	--net=host\
 	-v "${DOCKER_CONFIGS}/pihole/:/etc/pihole/" \
 	-v "${DOCKER_CONFIGS}/dnsmasq.d/:/etc/dnsmasq.d/" \
 	-e ServerIP="${IP}" \
+	-e ServerIPv6="${IPv6}"\
 	-e TZ=$TZ\
 	-e DNS1=$DNS1\
 	-e DNS2=$DNS2\
+	-e INTERFACE="eth0"\
+	-e DNSMASQ_LISTENING="local"\
+	--cap-add=NET_ADMIN\
 	--restart=always\
     $DOCKER_IMG
-#--net=host\
-#-e ServerIPv6="${IPv6}"\
+#-p 53:53/tcp -p 53:53/udp -p 80:80\
 
+
+sleep 3
 docker logs pihole 2> /dev/null | grep 'password:'
-#docker exec pihole bash -c "cat /var/log/pihole.log | grep 'password:'"
 
