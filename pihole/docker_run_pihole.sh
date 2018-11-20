@@ -2,9 +2,9 @@
 
 set -e 
 
-DOCKER_IMG="diginc/pi-hole-multiarch:debian_armhf"
-#DOCKER_IMG="diginc/pi-hole:arm_v3.1"
+DOCKER_IMG="pihole/pihole:latest"
 DOCKER_CONFIGS="/home/simon/pihole/etc"
+DOCKER_WWW="/home/simon/html"
 TZ="Asia/Tokyo"
 DNS1="1.1.1.1"
 DNS2="1.0.0.1"
@@ -21,6 +21,7 @@ docker run -d \
 	--net=host\
 	-v "${DOCKER_CONFIGS}/pihole/:/etc/pihole/" \
 	-v "${DOCKER_CONFIGS}/dnsmasq.d/:/etc/dnsmasq.d/" \
+	-v "${DOCKER_WWW}:/var/www/html/simon/" \
 	-e ServerIP="${IP}" \
 	-e ServerIPv6="${IPv6}"\
 	-e TZ=$TZ\
@@ -32,8 +33,10 @@ docker run -d \
 	--restart=always\
     $DOCKER_IMG
 #-p 53:53/tcp -p 53:53/udp -p 80:80\
+#-p 67/67/udp # for DHCP
+#-p 443:443 # for SSL
 
 
 sleep 3
-docker logs pihole 2> /dev/null | grep 'password:'
+docker logs pihole 2> /dev/null | grep 'password'
 
