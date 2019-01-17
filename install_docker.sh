@@ -5,8 +5,9 @@
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
 # For Raspbian using convenience script
-curl -fsSL https://get.docker.com -o /var/temp/get-docker.sh
-sudo sh /var/temp/get-docker.sh
+curl -fsSL https://get.docker.com -o /var/tmp/get-docker.sh
+sudo sh /var/tmp/get-docker.sh
+rm /var/tmp/get-docker.sh
 
 # Adding user to docker group
 sudo usermod -aG docker `whoami`
