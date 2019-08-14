@@ -2,8 +2,8 @@
 timeout=5 # seconds
 ip="192.168.1.91"
 port=5025
-cmd="MEAS?\n"
-sleep=.1
+cmd="MEAS:TEMP?\n"
+sleep=10
 
 while [ 1 ]
 do

@@ -4,7 +4,7 @@ set -e
 
 DOCKER_IMG="pihole/pihole:latest"
 DOCKER_CONFIGS="/home/simon/pihole/etc"
-DOCKER_WWW="/home/simon/html"
+DOCKER_WWW="/var/www/html/simon"
 TZ="Asia/Tokyo"
 DNS1="1.1.1.1"
 DNS2="1.0.0.1"
@@ -21,7 +21,7 @@ docker run -d \
 	--net=host\
 	-v "${DOCKER_CONFIGS}/pihole/:/etc/pihole/" \
 	-v "${DOCKER_CONFIGS}/dnsmasq.d/:/etc/dnsmasq.d/" \
-	-v "${DOCKER_WWW}:/var/www/html/simon/" \
+	-v "${DOCKER_WWW}:/var/www/html/simon" \
 	-e ServerIP="${IP}" \
 	-e ServerIPv6="${IPv6}"\
 	-e TZ=$TZ\
