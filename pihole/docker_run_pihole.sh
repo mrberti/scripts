@@ -18,19 +18,22 @@ echo "IP: ${IP} - IPv6: ${IPv6}"
 
 docker run -d \
     --name pihole \
+	--restart=unless-stopped\
 	--net=host\
+	--cap-add=NET_ADMIN\
 	-v "${DOCKER_CONFIGS}/pihole/:/etc/pihole/" \
 	-v "${DOCKER_CONFIGS}/dnsmasq.d/:/etc/dnsmasq.d/" \
 	-v "${DOCKER_WWW}:/var/www/html/simon" \
-	-e ServerIP="${IP}" \
-	-e ServerIPv6="${IPv6}"\
+	-v "/var/www/html/.well-known:/var/www/html/.well-known" \
+	--mount type=bind,source="/home/simon/pihole/etc/lighttpd/external.conf",target="/etc/lighttpd/external",readonly \
+	--mount type=bind,source="/home/simon/certs",target="/etc/certs",readonly \
 	-e TZ=$TZ\
 	-e DNS1=$DNS1\
 	-e DNS2=$DNS2\
-	-e INTERFACE="eth0"\
 	-e DNSMASQ_LISTENING="local"\
-	--cap-add=NET_ADMIN\
-	--restart=always\
+	-e INTERFACE="eth0"\
+	-e ServerIPv6="${IPv6}"\
+	-e ServerIP="${IP}" \
     $DOCKER_IMG
 #-p 53:53/tcp -p 53:53/udp -p 80:80\
 #-p 67/67/udp # for DHCP

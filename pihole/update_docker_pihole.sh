@@ -5,5 +5,5 @@ DOCKER="/usr/bin/docker"
 
 $DOCKER pull $REPO
 $DOCKER rm -f pihole
-/usr/local/bin/docker_run_pihole.sh
+/home/simon/scripts/pihole/docker_run_pihole.sh
 
