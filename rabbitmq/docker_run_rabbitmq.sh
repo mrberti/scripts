@@ -10,8 +10,10 @@ DOCKER_NAME="rabbitmq"
 
 docker run -d \
     --name $DOCKER_NAME \
+	-p 15671:15671 \
 	-p 15672:15672 \
 	-p 1883:1883 \
+	-p 8883:8883 \
 	--mount type=bind,source="/home/simon/rabbitmq/etc/rabbitmq",target="/etc/rabbitmq" \
 	--mount type=bind,source="/home/simon/rabbitmq/var/lib/rabbitmq",target="/var/lib/rabbitmq" \
 	--mount type=bind,source="/home/simon/certs",target="/etc/certs",readonly \
