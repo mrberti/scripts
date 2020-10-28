@@ -9,10 +9,8 @@ TZ="Asia/Tokyo"
 DNS1="1.1.1.1"
 DNS2="1.0.0.1"
 
-IP_LOOKUP="$(ip route get 1.1.1.1 | awk '{ print $NF; exit }')"  # May not work for VPN / tun0
-IPv6_LOOKUP="$(ip -6 route get 2606:4700:4700::1111 | awk '{ print $9; exit }')"  # May not work for VPN / tun0
-IP="${IP:-$IP_LOOKUP}"
-IPv6="${IPv6:-$IPv6_LOOKUP}"
+IP=$(hostname -I | awk '{print $1; exit}')
+IPv6=$(hostname -I | awk '{print $3; exit}')
 
 echo "IP: ${IP} - IPv6: ${IPv6}"
 
