@@ -23,8 +23,6 @@ docker run -d \
 	-v "${DOCKER_CONFIGS}/dnsmasq.d/:/etc/dnsmasq.d/" \
 	-v "${DOCKER_WWW}:/var/www/html/simon" \
 	-v "/var/www/html/.well-known:/var/www/html/.well-known" \
-	--mount type=bind,source="/home/simon/pihole/etc/lighttpd/external.conf",target="/etc/lighttpd/external",readonly \
-	--mount type=bind,source="/home/simon/certs",target="/etc/certs",readonly \
 	-e TZ=$TZ\
 	-e DNS1=$DNS1\
 	-e DNS2=$DNS2\
@@ -33,11 +31,14 @@ docker run -d \
 	-e ServerIPv6="${IPv6}"\
 	-e ServerIP="${IP}" \
     $DOCKER_IMG
+#	--mount type=bind,source="/home/simon/pihole/etc/lighttpd/external.conf",target="/etc/lighttpd/external",readonly \
+#	--mount type=bind,source="/home/simon/certs",target="/etc/certs",readonly \
 #-p 53:53/tcp -p 53:53/udp -p 80:80\
 #-p 67/67/udp # for DHCP
 #-p 443:443 # for SSL
 
 
 sleep 3
-docker logs pihole 2> /dev/null | grep 'password'
-
+PW=`docker logs pihole 2> /dev/null | grep 'password'`
+echo $PW
+echo $PW > pihole_pw.txt
