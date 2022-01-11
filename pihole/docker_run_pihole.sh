@@ -38,7 +38,6 @@ docker run -d \
 #-p 443:443 # for SSL
 
 
-sleep 3
-PW=`docker logs pihole 2> /dev/null | grep 'password'`
-echo $PW
-echo $PW > pihole_pw.txt
+sleep 5
+PW=`cat pihole_pw.txt`
+docker exec -it pihole sudo pihole -a -p $PW
