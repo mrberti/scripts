@@ -42,4 +42,4 @@ docker run -d \
 
 sleep 5
 PW=`cat pihole_pw.txt`
-docker exec -it pihole sudo pihole -a -p $PW
+docker exec -it pihole sudo pihole setpassword $PW
