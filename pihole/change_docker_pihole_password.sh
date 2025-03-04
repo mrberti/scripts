@@ -14,4 +14,4 @@ if [[ $PW != $PW2 ]] ; then
 	exit 1
 fi
 
-docker exec pihole bash -c "pihole -a -p $PW"
+docker exec pihole bash -c "pihole setpassword $PW"
